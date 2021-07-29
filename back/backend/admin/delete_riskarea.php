@@ -1,15 +1,26 @@
-<?php include('header.php');?>
+   <?php if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $curl = curl_init();
 
-<div class="right_col" role="main">
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://lotto.myminesite.com/timeline/deleteRiskArea.php',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => array('id' => $id),
+        ));
 
-<?php if(isset($_GET['id'])){
-                    $id = $_GET['id'];
-                    $sql = "DELETE from tb_riskarea where riskarea_id = '$id' ";
-                    $cls_conn->write_base($sql);
-                    echo $cls_conn->goto_page(0,'show_riskarea.php');
-                    }
-                    ?>
- 
-</div>
-<?php include('footer.php');?>
-     
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        $res = json_decode($response);
+        if ($res->msg === 'success') {
+            header('location:./show_riskarea.php');
+        }
+    }
+    ?>

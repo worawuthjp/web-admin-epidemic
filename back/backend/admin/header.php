@@ -36,8 +36,6 @@
     <link href="../template/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="../template/build/css/custom.min.css" rel="stylesheet">
- 
-    <link rel="shortcut icon" type="images/x-icon" href="e04efe2b-11ea-46f7-b632-b2f1878232d7_200x200.png" /> 
     <style>
 /* .bodybk {
 	background-image: url("../image/p4.jpg");
