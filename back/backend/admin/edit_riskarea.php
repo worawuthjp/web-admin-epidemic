@@ -16,7 +16,7 @@ if (isset($_POST['submit'])) {
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => array('placeName' => $_POST['placeName'], 'placeID' => $_POST['placeID'], 'lat' => $_POST['lat'], 'long' => $_POST['long'], 'startDate' => $startDateServer, 'endDate' => $endDateServer, 'id' => $_POST['id']),
+        CURLOPT_POSTFIELDS => array('placeName' => $_POST['placeName'], 'placeID' => $_POST['placeID'], 'lat' => $_POST['lat'], 'long' => $_POST['long'], 'startDate' => $startDateServer, 'endDate' => $endDateServer, 'id' => $_POST['id'], 'statusID' => $_POST['statusID']),
     ));
 
 
@@ -136,6 +136,40 @@ if (isset($_POST['submit'])) {
                                                                     echo $date->format('Y-m-d\TH:i') ?>" id="datePick" name="endDate" required="required" class="form-control col-md-4 col-xs-5">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">สถานะพื้นที่เสี่ยง<span class="required">:</span> </label>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <?php
+                                $curl = curl_init();
+
+                                curl_setopt_array($curl, array(
+                                    CURLOPT_URL => 'https://lotto.myminesite.com/timeline/getStatus.php',
+                                    CURLOPT_RETURNTRANSFER => true,
+                                    CURLOPT_ENCODING => '',
+                                    CURLOPT_MAXREDIRS => 10,
+                                    CURLOPT_TIMEOUT => 0,
+                                    CURLOPT_FOLLOWLOCATION => true,
+                                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                    CURLOPT_CUSTOMREQUEST => 'GET',
+                                ));
+
+                                $response = curl_exec($curl);
+
+                                curl_close($curl);
+                                $status = json_decode($response);
+                                ?>
+                                <select id="status" name="statusID" class="form-control col-md-4 col-xs-5">
+                                    <?php
+                                    foreach ($status->data as $list) {
+                                    ?>
+                                        <option <?= $row->status_id === $list->status_id ? 'selected' : '' ?> value="<?= $list->status_id ?>"><?= $list->status_name  ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+
 
                         <style type="text/css">
                             /* css สำหรับ div คลุม google map อีกที */

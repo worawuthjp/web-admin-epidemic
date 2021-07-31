@@ -14,7 +14,7 @@ if (isset($_POST['submit'])) {
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => array('placeName' => $_POST['placeName'], 'placeID' => $_POST['placeID'], 'lat' => $_POST['lat'], 'long' => $_POST['long'], 'startDate' => $startDateServer, 'endDate' => $endDateServer, 'adminID' => $_POST['adminID']),
+        CURLOPT_POSTFIELDS => array('placeName' => $_POST['placeName'], 'placeID' => $_POST['placeID'], 'lat' => $_POST['lat'], 'long' => $_POST['long'], 'startDate' => $startDateServer, 'endDate' => $endDateServer, 'adminID' => $_POST['adminID'], 'statusID' => $_POST['statusID']),
     ));
 
     $response = curl_exec($curl);
@@ -96,7 +96,7 @@ if (isset($_POST['submit'])) {
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">ชื่อพื้นที่เสี่ยง<span class="required">:</span> </label>
                             <div class="col-md-6 col-sm-6 col-xs-12 autocomplete">
-                                <input autocomplete="off" onkeyup="searchArea(event)" id="myInput" type="text" name="placeName" placeholder="ค้นหาชื่อสถานที่" class="form-control col-md-10 col-xs-12" />
+                                <input required="true" autocomplete="off" onkeyup="searchArea(event)" id="myInput" type="text" name="placeName" placeholder="ค้นหาชื่อสถานที่" class="form-control col-md-10 col-xs-12" />
                             </div>
                         </div>
 
@@ -104,13 +104,47 @@ if (isset($_POST['submit'])) {
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">วันที่เริ่มเข้าพื้นที่<span class="required">:</span> </label>
                             <div class="col-md-4 col-sm-6 col-xs-12">
 
-                                <input type="datetime-local" id="datePick" name="startDate" required="required" class="form-control col-md-4 col-xs-5">
+                                <input type="datetime-local" id="datePick" name="startDate" required="true" class="form-control col-md-4 col-xs-5">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">วันที่ออกจากพื้นที่<span class="required">:</span> </label>
                             <div class="col-md-4 col-sm-6 col-xs-12">
-                                <input type="datetime-local" id="datePick" name="endDate" required="required" class="form-control col-md-4 col-xs-5">
+                                <input type="datetime-local" id="datePick" name="endDate" required="true" class="form-control col-md-4 col-xs-5">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">สถานะพื้นที่เสี่ยง<span class="required">:</span> </label>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <?php
+                                $curl = curl_init();
+
+                                curl_setopt_array($curl, array(
+                                    CURLOPT_URL => 'https://lotto.myminesite.com/timeline/getStatus.php',
+                                    CURLOPT_RETURNTRANSFER => true,
+                                    CURLOPT_ENCODING => '',
+                                    CURLOPT_MAXREDIRS => 10,
+                                    CURLOPT_TIMEOUT => 0,
+                                    CURLOPT_FOLLOWLOCATION => true,
+                                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                    CURLOPT_CUSTOMREQUEST => 'GET',
+                                ));
+
+                                $response = curl_exec($curl);
+
+                                curl_close($curl);
+                                $status = json_decode($response);
+                                ?>
+                                <select id="status" name="statusID" class="form-control col-md-4 col-xs-5">
+                                    <option value="" disabled selected>ระบุสถานะ</option>
+                                    <?php
+                                    foreach ($status->data as $row) {
+                                    ?>
+                                        <option value="<?= $row->status_id ?>"><?= $row->status_name  ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
                             </div>
                         </div>
 

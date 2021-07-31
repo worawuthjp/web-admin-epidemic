@@ -24,6 +24,7 @@
                             <th>พิกัดสถานที่เสี่ยง</th>
                             <th>วันที่เริ่มเข้าพื้นที่</th>
                             <th>วันที่ออกจากพื้นที่</th>
+                            <th>สถานะของพื้นที่</th>
                             <th>ผู้ดูแล</th>
 
                             <th>เเก้ไข</th>
@@ -76,6 +77,9 @@
                                     $date = new DateTime($row->endDate);
                                     echo $date->format('d-m-Y H:i');
                                     ?>
+                                </td>
+                                <td>
+                                    <?= $row->status_name  ?>
                                 </td>
                                 <td>
                                     <?= $row->admin_fullname ?>
