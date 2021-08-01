@@ -213,7 +213,7 @@ if (isset($_POST['submit'])) {
 </div>
 <?php include('footer.inc.php'); ?>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXzEl_l-8_eE-tK1W4KQ3wiKT1OoOGq-E&callback=initialize&libraries=&v=weekly" async></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2n-2zDG5fX12Dyf8z_49SyOUkSjVnu0Y&callback=initialize&libraries=&v=weekly" async></script>
 
 <script type="text/javascript">
     function initialize(lat = null, long = null) {
