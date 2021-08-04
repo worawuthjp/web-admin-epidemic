@@ -1,5 +1,6 @@
 <?php session_start();?>
 <?php include('../class_conn.php');?>
+<?php include('../../../constant.php');?>
 <?php $cls_conn=new class_conn;?>
 
 <?php if(isset($_SESSION['admin_id'])){
