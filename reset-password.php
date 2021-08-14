@@ -27,6 +27,14 @@
     <link href="./css-reset-password.css" rel="stylesheet">
 
 </head>
+
+<?php
+    $id = "";
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+    }
+?>
+
 <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
 <div class="p" role="main">
     <div class="row">
@@ -40,7 +48,7 @@
                 <div class="x_content">
                     <br />
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" action="./done-reset-password.php">
-
+                        <input type="hidden" name="id" value="<?php echo $id?>" >
                         <div class="form-group ">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">New Password<span class="required">:</span> </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
