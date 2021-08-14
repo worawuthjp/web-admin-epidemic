@@ -1,4 +1,5 @@
-<?php include('header.php'); ?>
+<?php include('header.php');
+include("../../../constant.php"); ?>
 <div class="right_col" role="main">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel bodybke">
@@ -36,7 +37,7 @@
                         <?php
                         $curl = curl_init();
                         curl_setopt_array($curl, array(
-                            CURLOPT_URL => 'https://lotto.myminesite.com/timeline/getRiskArea.php',
+                            CURLOPT_URL => $HOST.'/timeline/getRiskArea.php',
                             CURLOPT_RETURNTRANSFER => true,
                             CURLOPT_ENCODING => '',
                             CURLOPT_MAXREDIRS => 10,
@@ -46,7 +47,7 @@
                             CURLOPT_CUSTOMREQUEST => 'GET',
                         ));
 
-                        echo $curl;
+                        
                         $response = curl_exec($curl);
 
                         curl_close($curl);

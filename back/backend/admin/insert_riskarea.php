@@ -1,4 +1,5 @@
 <?php
+include("../../../constant.php");
 if (isset($_POST['submit'])) {
     $curl = curl_init();
     $startDate = new DateTime($_POST['startDate']);
@@ -6,7 +7,7 @@ if (isset($_POST['submit'])) {
     $startDateServer =  $startDate->format("Y-m-d H:i:s");
     $endDateServer =  $endDate->format("Y-m-d H:i:s");
     curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://lotto.myminesite.com/timeline/riskArea.php',
+        CURLOPT_URL => $HOST.'/timeline/riskArea.php',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
@@ -120,7 +121,7 @@ if (isset($_POST['submit'])) {
                                 $curl = curl_init();
 
                                 curl_setopt_array($curl, array(
-                                    CURLOPT_URL => 'https://lotto.myminesite.com/timeline/getStatus.php',
+                                    CURLOPT_URL => $HOST.'/timeline/getStatus.php',
                                     CURLOPT_RETURNTRANSFER => true,
                                     CURLOPT_ENCODING => '',
                                     CURLOPT_MAXREDIRS => 10,
@@ -219,7 +220,7 @@ if (isset($_POST['submit'])) {
             method: 'GET',
             redirect: 'follow'
         };
-        fetch(`https://lotto.myminesite.com/map/mapApi.php?input=${textSearch}`, requestOptions)
+        fetch(`<?php echo $HOST?>/map/mapApi.php?input=${textSearch}`, requestOptions)
             .then(response => response.text())
             .then(result => {
                 autocomplete(document.getElementById("myInput"), JSON.parse(result), e)
@@ -271,7 +272,7 @@ if (isset($_POST['submit'])) {
                     redirect: 'follow'
                 };
 
-                fetch(`https://lotto.myminesite.com/map/getPlaceDetail.php?placeID=${placeId}`, requestOptions)
+                fetch(`<?php echo $HOST?>/map/getPlaceDetail.php?placeID=${placeId}`, requestOptions)
                     .then(response => response.text())
                     .then(result => {
                         const res = JSON.parse(result)
