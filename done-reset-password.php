@@ -19,8 +19,10 @@
 
   curl_close($curl);
   $res = json_decode($response);
+
+  print_r($res);
   
-  if($res->statusCode===400){
+  if($res->statusCode==400){
     header("location:./reset-password.php"); 
   }
 
