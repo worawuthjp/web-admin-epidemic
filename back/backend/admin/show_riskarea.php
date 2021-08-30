@@ -23,11 +23,11 @@ include("../../../constant.php"); ?>
                             <th>ลำดับที่</th>
                             <th>ชื่อสถานที่เสี่ยง</th>
                             <th>พิกัดสถานที่เสี่ยง</th>
+                            <th>โรคที่เสี่ยง</th>
                             <th>วันที่เริ่มเข้าพื้นที่</th>
                             <th>วันที่ออกจากพื้นที่</th>
                             <th>สถานะของพื้นที่</th>
                             <th>ผู้ดูแล</th>
-
                             <th>เเก้ไข</th>
                             <th>ลบ</th>
                         </tr>
@@ -66,6 +66,10 @@ include("../../../constant.php"); ?>
                                 </td>
                                 <td>
                                     <?= $row->latitude . "," . $row->longtitude ?>
+                                </td>
+
+                                <td>
+                                    <?= $row->epidemic_topic  ?>
                                 </td>
                                 <td>
                                     <?php

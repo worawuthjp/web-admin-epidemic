@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => array('placeName' => $_POST['placeName'], 'placeID' => $_POST['placeID'], 'lat' => $_POST['lat'], 'long' => $_POST['long'], 'startDate' => $startDateServer, 'endDate' => $endDateServer, 'id' => $_POST['id'], 'statusID' => $_POST['statusID']),
+        CURLOPT_POSTFIELDS => array('placeName' => $_POST['placeName'], 'placeID' => $_POST['placeID'], 'lat' => $_POST['lat'], 'long' => $_POST['long'], 'startDate' => $startDateServer, 'endDate' => $endDateServer, 'id' => $_POST['id'], 'statusID' => $_POST['statusID'],'epidemic_id' => $_POST['epidemic_id']),
     ));
 
 
@@ -120,6 +120,40 @@ if (isset($_POST['submit'])) {
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">ชื่อพื้นที่เสี่ยง<span class="required">:</span> </label>
                             <div class="col-md-6 col-sm-6 col-xs-12 autocomplete">
                                 <input autocomplete="off" value="<?php echo $row->riskarea_name ?>" onkeyup="searchArea(event)" id="myInput" type="text" name="placeName" placeholder="ค้นหาชื่อสถานที่" class="form-control col-md-10 col-xs-12" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">ระบุโรค<span
+                                        class="required">:</span> </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12 autocomplete">
+                                <select required id="epidemic_id" name="epidemic_id"
+                                        class="form-control col-md-10 col-xs-12">
+                                    <?php $curl = curl_init();
+
+                                    curl_setopt_array($curl, array(
+                                        CURLOPT_URL => $HOST . '/getEpidemic/getEpidemic.php',
+                                        CURLOPT_RETURNTRANSFER => true,
+                                        CURLOPT_ENCODING => '',
+                                        CURLOPT_MAXREDIRS => 10,
+                                        CURLOPT_TIMEOUT => 0,
+                                        CURLOPT_FOLLOWLOCATION => true,
+                                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                        CURLOPT_CUSTOMREQUEST => 'GET',
+                                    ));
+
+                                    $response = curl_exec($curl);
+
+                                    curl_close($curl);
+                                    $obj = json_decode($response);
+                                    foreach ($obj as $item) {
+                                        ?>
+                                        <option <?= $row->epidemic_id === $item->epidemic_id ? 'selected' : '' ?> value="<?= $item->epidemic_id ?>"><?= $item->epidemic_topic ?></option>
+                                        <?php
+                                    }
+                                    ?>
+
+                                </select>
                             </div>
                         </div>
 

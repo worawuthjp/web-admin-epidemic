@@ -1,9 +1,11 @@
-   <?php if (isset($_GET['id'])) {
+   <?php
+   include '../../../constant.php';
+   if (isset($_GET['id'])) {
         $id = $_GET['id'];
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://lotto.myminesite.com/timeline/deleteRiskArea.php',
+            CURLOPT_URL => $HOST.'/timeline/deleteRiskArea.php',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,

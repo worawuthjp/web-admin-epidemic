@@ -4,10 +4,10 @@ if (isset($_POST['submit'])) {
     $curl = curl_init();
     $startDate = new DateTime($_POST['startDate']);
     $endDate = new DateTime($_POST['endDate']);
-    $startDateServer =  $startDate->format("Y-m-d H:i:s");
-    $endDateServer =  $endDate->format("Y-m-d H:i:s");
+    $startDateServer = $startDate->format("Y-m-d H:i:s");
+    $endDateServer = $endDate->format("Y-m-d H:i:s");
     curl_setopt_array($curl, array(
-        CURLOPT_URL => $HOST.'/timeline/riskArea.php',
+        CURLOPT_URL => $HOST . '/timeline/riskArea.php',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
@@ -15,7 +15,7 @@ if (isset($_POST['submit'])) {
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => array('placeName' => $_POST['placeName'], 'placeID' => $_POST['placeID'], 'lat' => $_POST['lat'], 'long' => $_POST['long'], 'startDate' => $startDateServer, 'endDate' => $endDateServer, 'adminID' => $_POST['adminID'], 'statusID' => $_POST['statusID']),
+        CURLOPT_POSTFIELDS => array('placeName' => $_POST['placeName'], 'placeID' => $_POST['placeID'], 'lat' => $_POST['lat'], 'long' => $_POST['long'], 'startDate' => $startDateServer, 'endDate' => $endDateServer, 'adminID' => $_POST['adminID'], 'statusID' => $_POST['statusID'], 'epidemic_id' => $_POST['epidemic_id']),
     ));
 
     $response = curl_exec($curl);
@@ -82,46 +82,89 @@ if (isset($_POST['submit'])) {
                 <div class="x_title">
                     <h2>พื้นที่เสี่ยง</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
-                        <li><a class="close-link"><i class="fa fa-close"></i></a> </li>
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a></li>
                     </ul>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <br />
-                    <form action='./insert_riskarea.php' id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post">
+                    <br/>
+                    <form action='./insert_riskarea.php' id="demo-form2" data-parsley-validate
+                          class="form-horizontal form-label-left" method="post">
                         <input type="hidden" name="adminID" id="adminID" value="<?php echo $_SESSION['admin_id'] ?>">
                         <input type="hidden" name="lat" id="lat" value="">
                         <input type="hidden" name="long" id="long" value="">
                         <input type="hidden" name="placeID" id="placeId" value="">
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">ชื่อพื้นที่เสี่ยง<span class="required">:</span> </label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">ชื่อพื้นที่เสี่ยง<span
+                                        class="required">:</span> </label>
                             <div class="col-md-6 col-sm-6 col-xs-12 autocomplete">
-                                <input required="true" autocomplete="off" onkeyup="searchArea(event)" id="myInput" type="text" name="placeName" placeholder="ค้นหาชื่อสถานที่" class="form-control col-md-10 col-xs-12" />
+                                <input required="true" autocomplete="off" onkeyup="searchArea(event)" id="myInput"
+                                       type="text" name="placeName" placeholder="ค้นหาชื่อสถานที่"
+                                       class="form-control col-md-10 col-xs-12"/>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">วันที่เริ่มเข้าพื้นที่<span class="required">:</span> </label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">ระบุโรค<span
+                                        class="required">:</span> </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12 autocomplete">
+                                <select required id="epidemic_id" name="epidemic_id"
+                                        class="form-control col-md-10 col-xs-12">
+                                    <?php $curl = curl_init();
+
+                                    curl_setopt_array($curl, array(
+                                        CURLOPT_URL => $HOST . '/getEpidemic/getEpidemic.php',
+                                        CURLOPT_RETURNTRANSFER => true,
+                                        CURLOPT_ENCODING => '',
+                                        CURLOPT_MAXREDIRS => 10,
+                                        CURLOPT_TIMEOUT => 0,
+                                        CURLOPT_FOLLOWLOCATION => true,
+                                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                        CURLOPT_CUSTOMREQUEST => 'GET',
+                                    ));
+
+                                    $response = curl_exec($curl);
+
+                                    curl_close($curl);
+                                    $obj = json_decode($response);
+                                    foreach ($obj as $item) {
+                                        ?>
+                                        <option value="<?= $item->epidemic_id ?>"><?= $item->epidemic_topic ?></option>
+                                        <?php
+                                    }
+                                    ?>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">วันที่เริ่มเข้าพื้นที่<span
+                                        class="required">:</span> </label>
                             <div class="col-md-4 col-sm-6 col-xs-12">
 
-                                <input type="datetime-local" id="datePick" name="startDate" required="true" class="form-control col-md-4 col-xs-5">
+                                <input type="datetime-local" id="datePick" name="startDate" required="true"
+                                       class="form-control col-md-4 col-xs-5">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">วันที่ออกจากพื้นที่<span class="required">:</span> </label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">วันที่ออกจากพื้นที่<span
+                                        class="required">:</span> </label>
                             <div class="col-md-4 col-sm-6 col-xs-12">
-                                <input type="datetime-local" id="datePick" name="endDate" required="true" class="form-control col-md-4 col-xs-5">
+                                <input type="datetime-local" id="datePick" name="endDate" required="true"
+                                       class="form-control col-md-4 col-xs-5">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">สถานะพื้นที่เสี่ยง<span class="required">:</span> </label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">สถานะพื้นที่เสี่ยง<span
+                                        class="required">:</span> </label>
                             <div class="col-md-4 col-sm-6 col-xs-12">
                                 <?php
                                 $curl = curl_init();
 
                                 curl_setopt_array($curl, array(
-                                    CURLOPT_URL => $HOST.'/timeline/getStatus.php',
+                                    CURLOPT_URL => $HOST . '/timeline/getStatus.php',
                                     CURLOPT_RETURNTRANSFER => true,
                                     CURLOPT_ENCODING => '',
                                     CURLOPT_MAXREDIRS => 10,
@@ -140,9 +183,9 @@ if (isset($_POST['submit'])) {
                                     <option value="" disabled selected>ระบุสถานะ</option>
                                     <?php
                                     foreach ($status->data as $row) {
-                                    ?>
-                                        <option value="<?= $row->status_id ?>"><?= $row->status_name  ?></option>
-                                    <?php
+                                        ?>
+                                        <option value="<?= $row->status_id ?>"><?= $row->status_name ?></option>
+                                        <?php
                                     }
                                     ?>
                                 </select>
@@ -191,7 +234,8 @@ if (isset($_POST['submit'])) {
 
 <?php include('footer.inc.php'); ?>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo $API_MAP_KEY ?>&callback=initialize&libraries=&v=weekly" async></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo $API_MAP_KEY ?>&callback=initialize&libraries=&v=weekly"
+        async></script>
 
 <script type="text/javascript">
     function initialize(lat = null, long = null) {
@@ -261,7 +305,7 @@ if (isset($_POST['submit'])) {
             b.innerHTML += "<input type='hidden' id ='placeName' value='" + arr.predictions[i].description + "'>";
             b.innerHTML += "<input type='hidden' id ='placeId' value='" + arr.predictions[i].place_id + "'>";
             /*execute a function when someone clicks on the item value (DIV element):*/
-            b.addEventListener("click", function(e) {
+            b.addEventListener("click", function (e) {
                 /*insert the value for the autocomplete text field:*/
                 inp.value = this.getElementsByTagName("input")[0].value;
                 const placeId = this.getElementsByTagName("input")[1].value
@@ -282,7 +326,6 @@ if (isset($_POST['submit'])) {
                         document.getElementById("placeId").value = res.result.place_id
                     })
                     .catch(error => console.log('error', error));
-
 
 
                 /*close the list of autocompleted values,
@@ -319,8 +362,9 @@ if (isset($_POST['submit'])) {
                 }
             }
         }
+
         /*execute a function when someone clicks in the document:*/
-        document.addEventListener("click", function(e) {
+        document.addEventListener("click", function (e) {
             closeAllLists(e.target);
         });
     }
