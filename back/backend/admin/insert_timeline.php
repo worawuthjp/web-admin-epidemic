@@ -43,31 +43,6 @@
                                 <input type="time" id="name" name="time" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
-
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">ไอดีผู้ใช้<span class="required">:</span> </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select type="text" id="name" name="userid" required="required" class="form-control col-md-7 col-xs-12">
-                                <option value=""></option>
-                               <?php
-                                $a='1';
-                             $sql=" SELECT * from tb_user";
-                             $result=$cls_conn->select_base($sql);
-                             while($row=mysqli_fetch_array($result))
-                            //  echo $result;
-                             {
-                                 ?>
-                                  <option value="<?=$row['user_id']?>"><?=$row['user_id']?></option>
-                                 <?php } ?>
-
-                                </select>
-                            </div>
-                        </div>
-
-
-        
-              
                 <div class="ln_solid"></div>
                 <div class="form-group">
                     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -83,7 +58,7 @@
                     $timelinegps = $_POST['timelinegps'];
                     $timelinedate = $_POST['timelinedate'];
                     $time = $_POST['time'];
-                    $userid = $_POST['userid'];
+                    $userid = $_SESSION['admin_id'];
                     
 
                     $sql = " insert into tb_timeline(timeline_name,	timeline_gps,timeline_date,timeline_time,user_id)";

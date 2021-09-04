@@ -22,7 +22,7 @@
                         $rfidno = $row['rfid_no'];
                         $rfidname = $row['rfid_name'];                        
                         $rfidstatus = $row['rfid_status'];                                            
-                        $adminid = $row['admin_id'];
+
                     } 
                     }
                     ?>
@@ -49,30 +49,6 @@
                             </div>
                         </div>
 
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">ไอดีผู้ดูแล<span class="required">:</span> </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select type="text" id="name" name="adminid" value="<?=$adminid?>" required="required" class="form-control col-md-7 col-xs-12">
-                                <option value=""></option>
-                               <?php
-                                $a='1';
-                             $sql=" SELECT * from tb_admin";
-                             $result=$cls_conn->select_base($sql);
-                             while($row=mysqli_fetch_array($result))
-                            //  echo $result;
-                             {
-                                 ?>
-                                  <option value="<?=$row['admin_id']?>"><?=$row['admin_fullname']?></option>
-                                 <?php } ?>
-
-                                </select>
-                            </div>
-                        </div>
-                        
-
-        
-              
                 <div class="ln_solid"></div>
                 <div class="form-group">
                     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -88,7 +64,7 @@
                     $rfidname = $_POST['rfidname']; 
                     $rfidno =  $_POST['rfidno'];                       
                     $rfidstatus = $_POST['rfidstatus'];                                  
-                    $adminid = $_POST['adminid']; 
+                    $adminid = $_SESSION['admin_id'];
 
                     $sql="UPDATE tb_rfid set rfid_name = '$rfidname', rfid_no = '$rfidno',
                       rfid_status = '$rfidstatus' ,admin_id = '$adminid' 

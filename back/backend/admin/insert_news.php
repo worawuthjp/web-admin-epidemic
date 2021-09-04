@@ -52,25 +52,7 @@
 
                     
 
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Admin Name<span class="required">:</span> </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select type="text" id="name" name="adminid" required="required" class="form-control col-md-7 col-xs-12">
-                                <option value=""></option>
-                               <?php
-                                $a='1';
-                             $sql=" SELECT * from tb_admin";
-                             $result=$cls_conn->select_base($sql);
-                             while($row=mysqli_fetch_array($result))
-                            //  echo $result;
-                             {
-                                 ?>
-                                  <option value="<?=$row['admin_id']?>"><?=$row['admin_fullname']?></option>
-                                 <?php } ?>
 
-                                </select>
-                            </div>
-                        </div>
 
         
               
@@ -90,7 +72,6 @@
                     $content = $_POST['content'];
                     $date = $_POST['date'];
                     $status = $_POST['status'];
-                    $adminid = $_POST['adminid'];
 
                     $image = "";
                     if ($_FILES["image"]["name"] != "") {
@@ -102,7 +83,7 @@
                     }
 
                     $sql = " insert into tb_news(news_topic,news_content,news_image,news_date,news_status,admin_id)";
-                    $sql .= " values ('$topic','$content','$image','$date','$status','$adminid')";
+                    $sql .= " values ('$topic','$content','$image','$date','$status','{$_SESSION["admin_id"]}')";
 
                     if ($cls_conn->write_base($sql) == true) {
                         echo $cls_conn->show_message('Success');

@@ -183,23 +183,23 @@ th, td {
                                 </li>
                               
 
-                                <li><a><i class="fa fa-rss"></i>RFID<span
-                                            class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="insert_rfid.php" ><i class="fa fa-plus"></i>เพื่มข้อมูล</a></li>
-                                        <li><a href="show_rfid.php" ><i class="fa fa-file-text"></i>รายละเอียดข้อมูล</a></li>
-
-
-                                    </ul>
-                                </li>
-
-                                <li><a><i class="fa fa-child"></i>RFID_User<span
-                                            class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="insert_rfiduser.php" ><i class="fa fa-plus"></i>เพื่มข้อมูลผู้ใช้งานRFID</a></li>
-                                        <li><a href="show_rfiduser.php" ><i class="fa fa-file-text"></i>รายละเอียดข้อมูลผู้ใช้งานRFID</a></li>
-                                    </ul>
-                                </li>
+<!--                                <li><a><i class="fa fa-rss"></i>RFID<span-->
+<!--                                            class="fa fa-chevron-down"></span></a>-->
+<!--                                    <ul class="nav child_menu">-->
+<!--                                        <li><a href="insert_rfid.php" ><i class="fa fa-plus"></i>เพื่มข้อมูล</a></li>-->
+<!--                                        <li><a href="show_rfid.php" ><i class="fa fa-file-text"></i>รายละเอียดข้อมูล</a></li>-->
+<!---->
+<!---->
+<!--                                    </ul>-->
+<!--                                </li>-->
+<!---->
+<!--                                <li><a><i class="fa fa-child"></i>RFID_User<span-->
+<!--                                            class="fa fa-chevron-down"></span></a>-->
+<!--                                    <ul class="nav child_menu">-->
+<!--                                        <li><a href="insert_rfiduser.php" ><i class="fa fa-plus"></i>เพื่มข้อมูลผู้ใช้งานRFID</a></li>-->
+<!--                                        <li><a href="show_rfiduser.php" ><i class="fa fa-file-text"></i>รายละเอียดข้อมูลผู้ใช้งานRFID</a></li>-->
+<!--                                    </ul>-->
+<!--                                </li>-->
 
                                 <li><a><i class="fa fa-map-marker"></i>Risk_Place<span
                                             class="fa fa-chevron-down"></span></a>
@@ -209,13 +209,13 @@ th, td {
                                     </ul>
                                 </li>
 
-                                <li><a><i class="fa fa-clock-o"></i>Timeline<span
-                                            class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="insert_timeline.php" ><i class="fa fa-plus"></i>เพื่มข้อมูลไทม์ไลน์</a></li>
-                                        <li><a href="show_timeline.php" ><i class="fa fa-file-text"></i>Details</a></li>
-                                    </ul>
-                                </li>
+<!--                                <li><a><i class="fa fa-clock-o"></i>Timeline<span-->
+<!--                                            class="fa fa-chevron-down"></span></a>-->
+<!--                                    <ul class="nav child_menu">-->
+<!--                                        <li><a href="insert_timeline.php" ><i class="fa fa-plus"></i>เพื่มข้อมูลไทม์ไลน์</a></li>-->
+<!--                                        <li><a href="show_timeline.php" ><i class="fa fa-file-text"></i>Details</a></li>-->
+<!--                                    </ul>-->
+<!--                                </li>-->
 
                                 
 
