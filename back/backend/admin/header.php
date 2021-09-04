@@ -37,6 +37,9 @@
     <link href="../template/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="../template/build/css/custom.min.css" rel="stylesheet">
+
+    <link href="../css/app.css" rel="stylesheet">
+    <script type="text/javascript" src="../js/instascan.min.js"></script>
     <style>
 /* .bodybk {
 	background-image: url("../image/p4.jpg");
@@ -97,6 +100,9 @@ th, td {
 
                             <ul class="nav side-menu">
 
+                                <li><a href="scan_qrcode.php"><i class="fa fa-qrcode"></i>Scan Qrcode</a>
+
+                                </li>
 
                                 <li><a><i class="fa fa-anchor"></i>Admin<span
                                             class="fa fa-chevron-down"></span></a>
